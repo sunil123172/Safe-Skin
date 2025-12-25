@@ -1,0 +1,30 @@
+<form id="add-product-form" onsubmit="return addProduct()">
+  <label>Product Name:</label><br>
+  <input type="text" id="prod-name" required><br><br>
+  <label>Price:</label><br>
+  <input type="number" id="prod-price" required><br><br>
+  <label>Image URL:</label><br>
+  <input type="text" id="prod-img" required><br><br>
+  <label>Category:</label><br>
+  <select id="prod-category">
+    <option value="Skincare">Skincare</option>
+    <option value="Makeup">Makeup</option>
+    <option value="Sunscreens">Sunscreens</option>
+  </select><br><br>
+  <button type="submit" class="btn">Add Product</button>
+</form>
+
+<script>
+function addProduct() {
+  const name = document.getElementById("prod-name").value;
+  const price = parseInt(document.getElementById("prod-price").value);
+  const img = document.getElementById("prod-img").value;
+  const category = document.getElementById("prod-category").value;
+
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  products.push({name, price, img, category});
+  localStorage.setItem("products", JSON.stringify(products));
+  alert("Product added successfully!");
+  return false;
+}
+</script>
