@@ -17,14 +17,9 @@
       text-align: center;
       color: white;
     }
-    header h1 {
-      margin: 0;
-      font-size: 36px;
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 18px;
-    }
+    header h1 { margin: 0; font-size: 36px; }
+    header p { margin-top: 10px; font-size: 18px; }
+
     nav {
       background-color: #fff;
       display: flex;
@@ -38,14 +33,14 @@
       color: #ff5c8a;
       font-weight: bold;
     }
-    section {
-      padding: 50px 10%;
-    }
+
+    section { padding: 50px 10%; }
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
     }
+
     .card {
       background: white;
       border-radius: 12px;
@@ -59,19 +54,9 @@
       object-fit: cover;
       border-radius: 10px;
     }
-    .card h3 {
-      margin: 15px 0 5px;
-    }
-    .card p {
-      font-size: 14px;
-      color: #666;
-    }
-    .price {
-      font-size: 18px;
-      font-weight: bold;
-      color: #ff5c8a;
-      margin: 10px 0;
-    }
+    .card h3 { margin: 15px 0 5px; }
+    .card p { font-size: 14px; color: #666; }
+    .price { font-size: 18px; font-weight: bold; color: #ff5c8a; margin: 10px 0; }
     .btn {
       display: inline-block;
       padding: 10px 20px;
@@ -80,13 +65,29 @@
       border-radius: 20px;
       text-decoration: none;
       font-size: 14px;
+      cursor: pointer;
     }
+
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ff5c8a;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
     .about, .contact {
       background-color: #fff;
       border-radius: 12px;
       padding: 30px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 30px;
     }
+
     footer {
       background-color: #ff8fab;
       color: white;
@@ -109,67 +110,16 @@
   <a href="#contact">Contact</a>
 </nav>
 
+<!-- Cart Button -->
+<div class="cart" onclick="viewCart()">
+  Cart (<span id="cart-count">0</span>)
+</div>
+
 <section id="products">
   <h2>Our Products</h2>
-  <div class="products">
+  <div class="products" id="product-list">
+    <!-- Product card template -->
+    <!-- Copy this div for each new product -->
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" alt="Face Cream">
-      <h3>Glow Face Cream</h3>
-      <p>Hydrates and brightens your skin.</p>
-      <div class="price">Rs. 999</div>
-      <a class="btn" 
-href="https://wa.me/97798XXXXXXXX?text=Hello%20I%20want%20to%20order:%0AProduct:%20Glow%20Face%20Cream%0APrice:%20Rs.%20999">
-Order Now
-</a>
-
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1580870069867-74c57ee1bb07" alt="Serum">
-      <h3>Vitamin C Serum</h3>
-      <p>Reduces dark spots and dullness.</p>
-      <div class="price">Rs. 1,299</div>
-      <a class="btn" href="#contact">Order Now</a>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03" alt="Lipstick">
-      <h3>Matte Lipstick</h3>
-      <p>Long-lasting vibrant colors.</p>
-      <div class="price">Rs. 799</div>
-      <a class="btn" href="#contact">Order Now</a>
-    </div>
-  </div>
-  <div class="card">
-      <img src="STICK SUNSCREENS" alt="Sunscreens">
-      <h3>Stick sunscreens</h3>
-      <p>Best for ur skin in sun.</p>
-      <div class="price">Rs. 799</div>
-      <a class="btn" href="#contact">Order Now</a>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="about">
-    <h2>About Us</h2>
-    <p>
-      SETO CHHALA is an online beauty brand committed to delivering high-quality, affordable, and skin-friendly beauty products. Our mission is to help you feel confident and beautiful every day.
-    </p>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="contact">
-    <h2>Contact & Orders</h2>
-    <p><strong>WhatsApp:</strong> +977-9825806754</p>
-    <p><strong>Email:</strong> setochhala@gmail.com</p>
-    <img src="qr.png" width="200">
-    <p>Message us to place your order. We deliver all over Nepal.</p>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 SETO CHHALA Store. All Rights Reserved.</p>
-</footer>
-
-</body>
-</html>
+      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" alt="Glow Face Cream">
+      <h3>Glow F
