@@ -1,10 +1,13 @@
 SetoChhala/
-├─ index.html          ← Home page
-├─ products.html       ← Product listing page
-├─ login.html          ← Login page
+├─ index.html          ← Home Page
+├─ products.html       ← Product Listing Page
+├─ login.html          ← Login Page
+├─ admin.html          ← Admin Panel (add products)
 ├─ css/
-│  └─ style.css        ← Shared CSS
+│  └─ style.css        ← Shared styling
 ├─ js/
-│  └─ script.js        ← Shared JS for cart & login
-└─ images/
-   └─ (all product images)
+│  └─ script.js        ← Shared JS functions
+├─ images/
+│  └─ (all product images)
+└─ data/
+   └─ products.json    ← Store product data (simulated)
