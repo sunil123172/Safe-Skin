@@ -29,3 +29,34 @@ if(localStorage.getItem("loggedIn") === "true"){
   window.location.href = "products.html";
 }
 </script>
+<form id="login-form" onsubmit="return loginUser()">
+  <label>Email:</label><br>
+  <input type="email" id="email" required><br><br>
+  <label>Password:</label><br>
+  <input type="password" id="password" required><br><br>
+  <button type="submit" class="btn">Login</button>
+</form>
+<p id="login-msg"></p>
+
+<script>
+function loginUser() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  
+  // Demo: Admin credentials
+  if(email === "admin@setochhala.com" && password === "1234"){
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("userEmail", email);
+    window.location.href = "products.html";
+    return false;
+  } else {
+    document.getElementById("login-msg").innerText = "Invalid email or password";
+    return false;
+  }
+}
+
+// If already logged in, redirect
+if(localStorage.getItem("loggedIn") === "true"){
+  window.location.href = "products.html";
+}
+</script>
