@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SETO CHHALA - Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Login</h1>
+  </header>
+
+  <section>
+    <form id="login-form" onsubmit="return loginUser()">
+      <label>Email:</label><br>
+      <input type="email" id="email" required><br><br>
+      <label>Password:</label><br>
+      <input type="password" id="password" required><br><br>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p id="login-msg"></p>
+  </section>
+
+  <script>
+    function loginUser() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      // Simple demo login (no backend)
+      if(email === "admin@setochhala.com" && password === "1234"){
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "products.html";
+        return false;
+      } else {
+        document.getElementById("login-msg").innerText = "Invalid email or password";
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>
