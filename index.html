@@ -3,191 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SETO CHHALA</title>
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #fff8f5; color: #333; }
-    header { background: linear-gradient(135deg, #ff8fab, #ffc2d1); padding: 30px; text-align: center; color: white; }
-    header h1 { margin: 0; font-size: 36px; }
-    header p { margin-top: 10px; font-size: 18px; }
-    nav { background: #fff; display: flex; justify-content: center; gap: 30px; padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    nav a { text-decoration: none; color: #ff5c8a; font-weight: bold; }
-    section { padding: 50px 10%; }
-    .search-bar { text-align: center; margin-bottom: 20px; }
-    .search-bar input { padding: 10px; width: 60%; border-radius: 20px; border: 1px solid #ccc; }
-    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
-    .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
-    .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
-    .card h3 { margin: 15px 0 5px; }
-    .card p { font-size: 14px; color: #666; }
-    .price { font-size: 18px; font-weight: bold; color: #ff5c8a; margin: 10px 0; }
-    .btn { display: inline-block; padding: 10px 20px; background: #ff5c8a; color: white; border-radius: 20px; text-decoration: none; font-size: 14px; cursor: pointer; }
-    .cart { position: fixed; top: 20px; right: 20px; background: #ff5c8a; color: white; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 100; }
-    .cart-items { position: fixed; top: 60px; right: 20px; width: 350px; max-height: 400px; overflow-y: auto; background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 15px; display: none; z-index: 100; }
-    .cart-items h3 { margin-top: 0; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .cart-item img { width: 50px; border-radius: 5px; margin-right: 10px; }
-    .cart-item p { margin: 0; font-size: 14px; flex: 1; }
-    .cart-item button { background: red; color: white; border: none; border-radius: 5px; cursor: pointer; padding: 2px 6px; }
-    .cart-item input { width: 40px; padding: 2px; margin-left: 5px; border-radius: 5px; border: 1px solid #ccc; text-align: center; }
-    .checkout-btn { background: #ff5c8a; color: white; border: none; width: 100%; padding: 10px; border-radius: 12px; cursor: pointer; margin-top: 10px; font-weight: bold; }
-    .about, .contact { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 40px; }
-    footer { background: #ff8fab; color: white; text-align: center; padding: 20px; margin-top: 40px; }
-  </style>
+  <title>SETO CHHALA - Home</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header>
+    <h1>SETO CHHALA</h1>
+    <p>Premium Beauty Products for Natural Glow</p>
+  </header>
 
-<header>
-  <h1>SETO CHHALA</h1>
-  <p>Premium Beauty Products for Natural Glow</p>
-</header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="login.html">Login</a>
+  </nav>
 
-<nav>
-  <a href="#products">Products</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <section>
+    <h2>Welcome to SETO CHHALA</h2>
+    <p>Discover premium beauty products for your natural glow.</p>
+    <a href="products.html" class="btn">Shop Now</a>
+  </section>
 
-<div class="cart" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</div>
-
-<div class="cart-items" id="cart-items">
-  <h3>Your Cart</h3>
-  <div id="cart-list"></div>
-  <p><strong>Total: Rs. <span id="cart-total">0</span></strong></p>
-  <button class="checkout-btn" onclick="checkout()">Place Order</button>
-</div>
-
-<section id="products">
-  <h2>Our Products</h2>
-  <div class="search-bar">
-    <input type="text" id="search" placeholder="Search products..." onkeyup="filterProducts()">
-  </div>
-  <div class="products" id="product-container"></div>
-</section>
-
-<section id="about">
-  <div class="about">
-    <h2>About Us</h2>
-    <p>SETO CHHALA is an online beauty brand committed to delivering high-quality, affordable, and skin-friendly beauty products. Our mission is to help you feel confident and beautiful every day.</p>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="contact">
-    <h2>Contact & Orders</h2>
-    <p><strong>WhatsApp:</strong> +977-9825806754</p>
-    <p><strong>Email:</strong> setochhala@gmail.com</p>
-    <img src="qr.png" width="200" alt="QR Code">
-    <p>Message us to place your order. We deliver all over Nepal.</p>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 SETO CHHALA Store. All Rights Reserved.</p>
-</footer>
-
-<script>
-const products = [
-  { name: "Glow Face Cream", price: 999, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" },
-  { name: "Vitamin C Serum", price: 1299, img: "https://images.unsplash.com/photo-1580870069867-74c57ee1bb07" },
-  { name: "Matte Lipstick", price: 799, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03" },
-  { name: "Stick Sunscreens", price: 799, img: "https://images.unsplash.com/674439648c45a086ba5bf066_earth-rhythm-sunstick-spf-50-mineral-40gm" }
-];
-
-let cart = [];
-
-function displayProducts() {
-  const container = document.getElementById("product-container");
-  container.innerHTML = "";
-  products.forEach((product, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${product.img}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>Best for your skin</p>
-      <div class="price">Rs. ${product.price}</div>
-      <div>
-        Quantity: <input type="number" value="1" min="1" id="qty-${index}">
-      </div>
-      <button class="btn" onclick="addToCart(${index})">Add to Cart</button>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function filterProducts() {
-  const query = document.getElementById("search").value.toLowerCase();
-  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-  const container = document.getElementById("product-container");
-  container.innerHTML = "";
-  filtered.forEach((product, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${product.img}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>Best for your skin</p>
-      <div class="price">Rs. ${product.price}</div>
-      <div>
-        Quantity: <input type="number" value="1" min="1" id="qty-${index}">
-      </div>
-      <button class="btn" onclick="addToCart(${index})">Add to Cart</button>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function addToCart(index) {
-  const qty = parseInt(document.getElementById(`qty-${index}`).value);
-  const product = {...products[index], quantity: qty};
-  cart.push(product);
-  updateCart();
-}
-
-function updateCart() {
-  document.getElementById("cart-count").innerText = cart.length;
-  const cartList = document.getElementById("cart-list");
-  const cartTotal = document.getElementById("cart-total");
-  cartList.innerHTML = "";
-  let total = 0;
-  cart.forEach((item, i) => {
-    total += item.price * item.quantity;
-    const div = document.createElement("div");
-    div.className = "cart-item";
-    div.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
-      <p>${item.name} x ${item.quantity} - Rs. ${item.price * item.quantity}</p>
-      <button onclick="removeFromCart(${i})">X</button>
-    `;
-    cartList.appendChild(div);
-  });
-  cartTotal.innerText = total;
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-function toggleCart() {
-  const cartDiv = document.getElementById("cart-items");
-  cartDiv.style.display = cartDiv.style.display === "block" ? "none" : "block";
-}
-
-function checkout() {
-  if(cart.length === 0){
-    alert("Your cart is empty!");
-    return;
-  }
-  let message = "Hello, I want to order:%0A";
-  cart.forEach(item => {
-    message += `Product: ${item.name} x ${item.quantity}%0APrice: Rs. ${item.price * item.quantity}%0A`;
-  });
-  const whatsappUrl = `https://wa.me/9779825806754?text=${message}`;
-  window.open(whatsappUrl, "_blank");
-}
-
-displayProducts();
-</script>
+  <footer>
+    <p>© 2025 SETO CHHALA Store. All Rights Reserved.</p>
+  </footer>
 </body>
 </html>
