@@ -98,3 +98,12 @@ function checkout() {
 }
 
 displayProducts();
+// Load cart from localStorage
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// Update cart in localStorage whenever it changes
+function updateCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  displayCartItems();
+}
+
