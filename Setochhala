@@ -1,0 +1,10 @@
+SetoChhala/
+├─ index.html          ← Home page
+├─ products.html       ← Product listing page
+├─ login.html          ← Login page
+├─ css/
+│  └─ style.css        ← Shared CSS
+├─ js/
+│  └─ script.js        ← Shared JS for cart & login
+└─ images/
+   └─ (all product images)
