@@ -19,7 +19,6 @@
     }
     header h1 { margin: 0; font-size: 36px; }
     header p { margin-top: 10px; font-size: 18px; }
-
     nav {
       background-color: #fff;
       display: flex;
@@ -28,32 +27,18 @@
       padding: 15px 0;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    nav a {
-      text-decoration: none;
-      color: #ff5c8a;
-      font-weight: bold;
-    }
-
+    nav a { text-decoration: none; color: #ff5c8a; font-weight: bold; }
     section { padding: 50px 10%; }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-    }
-
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
     .card {
       background: white;
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       text-align: center;
+      position: relative;
     }
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+    .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
     .card h3 { margin: 15px 0 5px; }
     .card p { font-size: 14px; color: #666; }
     .price { font-size: 18px; font-weight: bold; color: #ff5c8a; margin: 10px 0; }
@@ -67,33 +52,44 @@
       font-size: 14px;
       cursor: pointer;
     }
-
     .cart {
       position: fixed;
       top: 20px;
       right: 20px;
       background: #ff5c8a;
       color: white;
-      padding: 15px 20px;
-      border-radius: 30px;
+      padding: 10px 20px;
+      border-radius: 20px;
       cursor: pointer;
-      z-index: 1000;
+      font-weight: bold;
     }
-
-    .about, .contact {
-      background-color: #fff;
+    .cart-items {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      background: white;
       border-radius: 12px;
-      padding: 30px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin-top: 30px;
+      padding: 15px;
+      display: none;
     }
-
-    footer {
-      background-color: #ff8fab;
+    .cart-items h3 { margin-top: 0; }
+    .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .cart-item img { width: 50px; border-radius: 5px; }
+    .cart-item p { margin: 0; font-size: 14px; }
+    .cart-item button { background: red; color: white; border: none; border-radius: 5px; cursor: pointer; padding: 2px 6px; }
+    .checkout-btn {
+      background: #ff5c8a;
       color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -110,16 +106,117 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<!-- Cart Button -->
-<div class="cart" onclick="viewCart()">
-  Cart (<span id="cart-count">0</span>)
+<div class="cart" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</div>
+<div class="cart-items" id="cart-items">
+  <h3>Your Cart</h3>
+  <div id="cart-list"></div>
+  <button class="checkout-btn" onclick="checkout()">Place Order</button>
 </div>
 
 <section id="products">
   <h2>Our Products</h2>
-  <div class="products" id="product-list">
-    <!-- Product card template -->
-    <!-- Copy this div for each new product -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" alt="Glow Face Cream">
-      <h3>Glow F
+  <div class="products" id="product-container">
+    <!-- Products will be dynamically inserted here -->
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <h2>About Us</h2>
+    <p>
+      SETO CHHALA is an online beauty brand committed to delivering high-quality, affordable, and skin-friendly beauty products. Our mission is to help you feel confident and beautiful every day.
+    </p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <h2>Contact & Orders</h2>
+    <p><strong>WhatsApp:</strong> +977-9825806754</p>
+    <p><strong>Email:</strong> setochhala@gmail.com</p>
+    <img src="qr.png" width="200" alt="QR Code">
+    <p>Message us to place your order. We deliver all over Nepal.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 SETO CHHALA Store. All Rights Reserved.</p>
+</footer>
+
+<script>
+  const products = [
+    { name: "Glow Face Cream", price: 999, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9" },
+    { name: "Vitamin C Serum", price: 1299, img: "https://images.unsplash.com/photo-1580870069867-74c57ee1bb07" },
+    { name: "Matte Lipstick", price: 799, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03" },
+    { name: "Stick Sunscreens", price: 799, img: "https://images.unsplash.com/photo-1600185365040-0d36e4e2a0a6" }
+  ];
+
+  const cart = [];
+
+  function displayProducts() {
+    const container = document.getElementById("product-container");
+    container.innerHTML = "";
+    products.forEach((product, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${product.img}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>Best for your skin</p>
+        <div class="price">Rs. ${product.price}</div>
+        <button class="btn" onclick="addToCart(${index})">Add to Cart</button>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function addToCart(index) {
+    cart.push(products[index]);
+    document.getElementById("cart-count").innerText = cart.length;
+    displayCart();
+  }
+
+  function toggleCart() {
+    const cartDiv = document.getElementById("cart-items");
+    cartDiv.style.display = cartDiv.style.display === "block" ? "none" : "block";
+  }
+
+  function displayCart() {
+    const cartList = document.getElementById("cart-list");
+    cartList.innerHTML = "";
+    cart.forEach((item, i) => {
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <p>${item.name} - Rs. ${item.price}</p>
+        <button onclick="removeFromCart(${i})">X</button>
+      `;
+      cartList.appendChild(div);
+    });
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    document.getElementById("cart-count").innerText = cart.length;
+    displayCart();
+  }
+
+  function checkout() {
+    if(cart.length === 0){
+      alert("Your cart is empty!");
+      return;
+    }
+    let message = "Hello, I want to order:%0A";
+    cart.forEach(item => {
+      message += `Product: ${item.name}%0APrice: Rs. ${item.price}%0A`;
+    });
+    const whatsappUrl = `https://wa.me/9779825806754?text=${message}`;
+    window.open(whatsappUrl, "_blank");
+  }
+
+  displayProducts();
+</script>
+
+</body>
+</html>
